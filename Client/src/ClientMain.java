@@ -33,10 +33,14 @@ public class ClientMain {
                 while (true) {
                     //Gets PlayerID
                     int playerID = client.getPlayerID();
+
                     System.out.println("Your ID: " + playerID);
                     //Gets AllPlayerInformation including ID and Score
                     var playerInfo = client.getAllPlayerInfo();
+                    System.out.println("------------------------------------");
                     playerInfo.stream().forEach((p)-> System.out.println(p));
+                    System.out.println("------------------------------------");
+
                     while (true) {
                         //Guess Game
                         int numberGuess;
@@ -76,9 +80,9 @@ public class ClientMain {
                         while (true);
 
                         var reply = client.guessTheNumber(numberGuess,positionGuess);
-                        for (String s : reply) {
-                            System.out.println(s);
-                        }
+                        reply.stream().forEach((r)-> System.out.println(r));
+
+
                         String checkCountReply = client.checkGuessCount();
                         if (checkCountReply.equals("correct")) {
                             String checkScoreReply = client.checkScore();
@@ -89,6 +93,7 @@ public class ClientMain {
                             }
                             else
                                 System.out.println("You guessed correctly!");
+                                startOrStop(in);
                                 break;
                         }
                         else if (checkCountReply.equals("lose")) {

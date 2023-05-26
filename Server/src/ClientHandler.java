@@ -15,11 +15,11 @@ public class ClientHandler implements Runnable {
     @Override
     public void run() {
         int playerId = 0;
-        System.out.println("Client Handler running");
         try( Scanner read = new Scanner(socket.getInputStream());
              PrintWriter write = new PrintWriter(socket.getOutputStream(), true)) {
             try {
                 playerId = gameHost.createPlayer();
+                System.out.println("Player " + playerId + " has joined.");
                 while (read.hasNextLine()) {
                     String line = read.nextLine();
                     String[] substring = line.split(" ");
@@ -28,7 +28,7 @@ public class ClientHandler implements Runnable {
                         case ("getPlayerId"):
                             write.println(playerId);
                             // TEST FUNCTION : Get 3 numbers from playerId
-                            System.out.println(gameHost.get3numbers(playerId));
+                            System.out.println("Player " + playerId + " Question Board: " +  gameHost.get3numbers(playerId));
                             break;
 
                         case ("getAllPlayerInfo"):
@@ -59,9 +59,14 @@ public class ClientHandler implements Runnable {
                         case ("checkScore") :
                             String scoreReply = gameHost.checkScore(playerId);
                             write.println(scoreReply);
-                            gameHost.showWinners();
-                            gameHost.showTop10Winners();
-                            gameHost.showTop3LuckyPlayers();
+                            if(scoreReply.equals("win")) {
+                                System.out.println("------------------------------------");
+                                gameHost.showWinners();
+                                gameHost.showTop10Winners();
+                                gameHost.showTop3LuckyPlayers();
+                                System.out.println("------------------------------------");
+
+                            }
                             break;
 
                         default:

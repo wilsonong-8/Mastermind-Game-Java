@@ -11,9 +11,8 @@ public class Client implements AutoCloseable {
         Socket socket = new Socket("localhost",port);
         read = new Scanner(socket.getInputStream());
         write = new PrintWriter(socket.getOutputStream(),true);
-
-        System.out.println("Client Class connected");
-
+        System.out.println("Welcome to MasterMind! You have 10 chances to guess 3 numbers in their correct positions. " +
+                "\nScore 50 points to win!");
     }
 
     public int getPlayerID() {
@@ -36,10 +35,13 @@ public class Client implements AutoCloseable {
 
     public List<String> guessTheNumber(int number, int position) {
         List<String> hintList = new ArrayList<>();
+        String spacing = "------------------------------------";
         write.println("guessTheNumber" + " " + number + " " + position);
         String line = read.nextLine();
+        hintList.add(spacing);
         hintList.add(line);
         if (line.contains("Correct Guess!") || line.contains("Try another position")) {
+            hintList.add(spacing);
             return hintList;
         }
         int size = Integer.parseInt(read.nextLine());
@@ -47,6 +49,7 @@ public class Client implements AutoCloseable {
             String line2 = read.nextLine();
             hintList.add(line2);
         }
+        hintList.add(spacing);
         return hintList;
     }
 

@@ -50,7 +50,7 @@ public class GameHost {
                     player.addCorrectPosition(number,position);
                     player.changeQuestionBoard(position);
                     player.setCorrectCounter();
-                    return ("Correct Guess! " + number + " is in " + position);
+                    return ("Correct Guess! " + number + " is in Position " + position);
 
                 }
                 else {
