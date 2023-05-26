@@ -96,6 +96,7 @@ public class GameHost {
     public String checkGuessCount(int playerId) {
         Player player = playerList.get(playerId);
         if(player.getCorrectCounter() <=0) {
+            System.out.println("Player " + playerId + " scored " + player.getGuessCount() + " points.");
             if(player.getLuckyGuessBool())
                 player.addLuckyGuess();
             player.addScore();
@@ -174,8 +175,10 @@ public class GameHost {
     }
 
     public void removePlayer(int playerId) {
-        playerList.remove(playerId);
-        System.out.println("Player " + playerId + " has disconnected.");
+        synchronized (playerList) {
+            playerList.remove(playerId);
+            System.out.println("Player " + playerId + " has disconnected.");
+        }
     }
 
 

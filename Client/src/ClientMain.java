@@ -2,32 +2,10 @@ import java.util.Scanner;
 
 public class ClientMain {
 
-    public static void startOrStop(Scanner in) throws Exception {
-        int startOrStop;
-        do {
-            System.out.println("Enter 1 to Continue or 2 to Exit.");
-            String startOrStopString = in.nextLine();
-            if(startOrStopString.isEmpty())
-                System.out.println("Input cannot be empty");
-            else if(!startOrStopString.matches("\\d+"))
-                System.out.println("Please only input numbers");
-            else {
-                startOrStop = Integer.parseInt(startOrStopString);
-                if(startOrStop == 1)
-                    break;
-                else if(startOrStop ==2)
-                    throw new Exception("Thank you for playing");
-                else
-                    System.out.println("Invalid Number Entered, Please try again");
-            }
-        }
-        while (true);
-    }
     public static void main(String[] args) {
 
         try {
                 Scanner in = new Scanner(System.in);
-
             try (Client client = new Client()) {
 
                 while (true) {
@@ -91,10 +69,11 @@ public class ClientMain {
                                 startOrStop(in);
                                 break;
                             }
-                            else
+                            else {
                                 System.out.println("You guessed correctly!");
                                 startOrStop(in);
                                 break;
+                            }
                         }
                         else if (checkCountReply.equals("lose")) {
                             System.out.println("You lose!");
@@ -109,5 +88,27 @@ public class ClientMain {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static void startOrStop(Scanner in) throws Exception {
+        int startOrStop;
+        do {
+            System.out.println("Enter 1 to Continue or 2 to Exit.");
+            String startOrStopString = in.nextLine();
+            if(startOrStopString.isEmpty())
+                System.out.println("Input cannot be empty");
+            else if(!startOrStopString.matches("\\d+"))
+                System.out.println("Please only input numbers");
+            else {
+                startOrStop = Integer.parseInt(startOrStopString);
+                if(startOrStop == 1)
+                    break;
+                else if(startOrStop ==2)
+                    throw new Exception("Thank you for playing");
+                else
+                    System.out.println("Invalid Number Entered, Please try again");
+            }
+        }
+        while (true);
     }
 }
