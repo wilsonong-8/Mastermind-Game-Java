@@ -65,7 +65,6 @@ public class ClientHandler implements Runnable {
                                 gameHost.showTop10Winners();
                                 gameHost.showTop3LuckyPlayers();
                                 System.out.println("------------------------------------");
-
                             }
                             break;
 
@@ -83,6 +82,7 @@ public class ClientHandler implements Runnable {
             } finally {
             gameHost.removePlayer(playerId);
             try {
+
                 socket.close();
             }catch (IOException e) {
                 e.printStackTrace();

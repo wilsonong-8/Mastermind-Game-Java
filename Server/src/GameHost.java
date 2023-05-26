@@ -113,20 +113,25 @@ public class GameHost {
     }
 
     public String checkScore(int playerId) {
-        Player player = playerList.get(playerId);
-        if(player.getScore()>=50) {
-            player.addWins();
-            if (!winList.contains(player))
-                winList.add(player);
-            player.resetPlayerStats();
-            player.resetScore();
-            generateNewBoard(playerId);
-            return "win";
+        synchronized (playerList){
+            Player player = playerList.get(playerId);
+            if(player.getScore()>=50) {
+                player.addWins();
+                if (!winList.contains(player))
+                    winList.add(player);
+                player.resetPlayerStats();
+                generateNewBoard(playerId);
+                //RESETS SCORES FOR EVERYONE TO 0, DOES NOT CHANGE ANYTHING ELSE
+                for (Player losers : playerList.values())
+                    losers.resetScore();
+                return "win";
+            }
+            return "continue";
         }
-        return "continue";
-        //RESET THE GAME (IF HAVE TO RESET GAME FOR ALL PLAYERS)
-        //ENTER CODE HERE
     }
+
+
+
 
 
 

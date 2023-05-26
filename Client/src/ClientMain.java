@@ -21,41 +21,42 @@ public class ClientMain {
 
                     while (true) {
                         //Guess Game
-                        int numberGuess;
-                        do {
-                            System.out.println("Guess a number between 1 to 10:");
-                            String numberGuessString = in.nextLine();
-                            if(numberGuessString.isEmpty())
-                                System.out.println("Input cannot be empty");
-                            else if(!numberGuessString.matches("\\d+"))
-                                System.out.println("Please only input numbers");
-                            else {
-                                   numberGuess = Integer.parseInt(numberGuessString);
-                                   if(numberGuess >=1 && numberGuess <=10)
-                                       break;
-                                   else
-                                       System.out.println("Invalid Number Entered. Please try again");
-                            }
-                        }
-                        while (true);
+                        int numberGuess = validationCheck(in,1,10);
 
-                        int positionGuess;
-                        do {
-                            System.out.println("Guess the position between 1 to 3:");
-                            String positionGuessString = in.nextLine();
-                            if(positionGuessString.isEmpty())
-                                System.out.println("Input cannot be empty");
-                            else if(!positionGuessString.matches("\\d+"))
-                                System.out.println("Please only input numbers");
-                            else {
-                                positionGuess = Integer.parseInt(positionGuessString);
-                                if(positionGuess>=1 && positionGuess<=3)
-                                    break;
-                                else
-                                    System.out.println("Invalid Number Entered, Please try again");
-                            }
-                        }
-                        while (true);
+//                        do {
+//                            System.out.println("Guess a number between 1 to 10:");
+//                            String numberGuessString = in.nextLine();
+//                            if(numberGuessString.isEmpty())
+//                                System.out.println("Input cannot be empty");
+//                            else if(!numberGuessString.matches("\\d+"))
+//                                System.out.println("Please only input numbers");
+//                            else {
+//                                   numberGuess = Integer.parseInt(numberGuessString);
+//                                   if(numberGuess >=1 && numberGuess <=10)
+//                                       break;
+//                                   else
+//                                       System.out.println("Invalid Number Entered. Please try again");
+//                            }
+//                        }
+//                        while (true);
+
+                        int positionGuess = validationCheck(in,1,3);
+//                        do {
+//                            System.out.println("Guess the position between 1 to 3:");
+//                            String positionGuessString = in.nextLine();
+//                            if(positionGuessString.isEmpty())
+//                                System.out.println("Input cannot be empty");
+//                            else if(!positionGuessString.matches("\\d+"))
+//                                System.out.println("Please only input numbers");
+//                            else {
+//                                positionGuess = Integer.parseInt(positionGuessString);
+//                                if(positionGuess>=1 && positionGuess<=3)
+//                                    break;
+//                                else
+//                                    System.out.println("Invalid Number Entered, Please try again");
+//                            }
+//                        }
+//                        while (true);
 
                         var reply = client.guessTheNumber(numberGuess,positionGuess);
                         reply.stream().forEach((r)-> System.out.println(r));
@@ -66,14 +67,12 @@ public class ClientMain {
                             String checkScoreReply = client.checkScore();
                             if(checkScoreReply.equals("win")) {
                                 System.out.println("You won the game!");
-                                startOrStop(in);
-                                break;
                             }
                             else {
                                 System.out.println("You guessed correctly!");
-                                startOrStop(in);
-                                break;
                             }
+                            startOrStop(in);
+                            break;
                         }
                         else if (checkCountReply.equals("lose")) {
                             System.out.println("You lose!");
@@ -88,6 +87,27 @@ public class ClientMain {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public static int validationCheck(Scanner in, int moreThan, int lessThan) {
+        int outputNum;
+        do {
+            System.out.println("Guess a number between 1 to 10:");
+            String inputString = in.nextLine();
+            if(inputString.isEmpty())
+                System.out.println("Input cannot be empty");
+            else if(!inputString.matches("\\d+"))
+                System.out.println("Please only input numbers");
+            else {
+                outputNum = Integer.parseInt(inputString);
+                if(outputNum >= moreThan && outputNum <=lessThan)
+                    break;
+                else
+                    System.out.println("Invalid Number Entered. Please try again");
+            }
+        }
+        while (true);
+        return outputNum;
     }
 
     public static void startOrStop(Scanner in) throws Exception {
