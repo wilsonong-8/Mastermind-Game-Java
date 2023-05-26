@@ -1,6 +1,28 @@
 import java.util.Scanner;
 
 public class ClientMain {
+
+    public static void startOrStop(Scanner in) throws Exception {
+        int startOrStop;
+        do {
+            System.out.println("Enter 1 to Continue or 2 to Exit.");
+            String startOrStopString = in.nextLine();
+            if(startOrStopString.isEmpty())
+                System.out.println("Input cannot be empty");
+            else if(!startOrStopString.matches("\\d+"))
+                System.out.println("Please only input numbers");
+            else {
+                startOrStop = Integer.parseInt(startOrStopString);
+                if(startOrStop == 1)
+                    break;
+                else if(startOrStop ==2)
+                    throw new Exception("Thank you for playing");
+                else
+                    System.out.println("Invalid Number Entered, Please try again");
+            }
+        }
+        while (true);
+    }
     public static void main(String[] args) {
 
         try {
@@ -57,12 +79,12 @@ public class ClientMain {
                         for (String s : reply) {
                             System.out.println(s);
                         }
-                        String checkCountReply = client.checkCount();
+                        String checkCountReply = client.checkGuessCount();
                         if (checkCountReply.equals("correct")) {
                             String checkScoreReply = client.checkScore();
                             if(checkScoreReply.equals("win")) {
-                                System.out.println("You won the game! Press Enter to play again");
-                                in.nextLine();
+                                System.out.println("You won the game!");
+                                startOrStop(in);
                                 break;
                             }
                             else
@@ -71,6 +93,7 @@ public class ClientMain {
                         }
                         else if (checkCountReply.equals("lose")) {
                             System.out.println("You lose!");
+                            startOrStop(in);
                             break;
                         }
                     }
@@ -79,7 +102,7 @@ public class ClientMain {
 
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

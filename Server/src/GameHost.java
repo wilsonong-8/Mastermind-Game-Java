@@ -95,7 +95,7 @@ public class GameHost {
 
     public String checkGuessCount(int playerId) {
         Player player = playerList.get(playerId);
-        if(player.getCorrectCounter() <1) {
+        if(player.getCorrectCounter() <=0) {
             if(player.getLuckyGuessBool())
                 player.addLuckyGuess();
             player.addScore();
@@ -103,7 +103,7 @@ public class GameHost {
             player.resetPlayerStats();
             return "correct";
         }
-        else if(player.getGuessCount() <1) {
+        else if(player.getGuessCount() <=0) {
             generateNewBoard(playerId);
             player.resetPlayerStats();
             return "lose";

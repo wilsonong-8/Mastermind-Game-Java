@@ -1,5 +1,4 @@
 import java.io.PrintWriter;
-import java.net.Inet4Address;
 import java.net.Socket;
 import java.util.*;
 
@@ -51,7 +50,7 @@ public class Client implements AutoCloseable {
         return hintList;
     }
 
-    public String checkCount() {
+    public String checkGuessCount() {
         write.println("checkCount");
         String countReply = read.nextLine();
         return countReply;
