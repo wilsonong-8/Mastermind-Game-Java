@@ -42,7 +42,7 @@ public class ClientHandler implements Runnable {
                             int guessPosition = Integer.parseInt(substring[2]);
                             String guessAnswer= gameHost.guessTheNumber(playerId,guessNumber,guessPosition);
                             write.println(guessAnswer);
-                            if(!guessAnswer.contains("Correct Guess!")) {
+                            if(!guessAnswer.contains("Correct Guess!") && !guessAnswer.contains("Try another position")) {
                                 var hintList= gameHost.getHintList(playerId);
                                 write.println(hintList.size());
                                 for(String s : hintList) {

@@ -40,7 +40,9 @@ public class GameHost {
             Player player = playerList.get(playerId);
             var guessList = player.getQuestionBoard();
             player.addGuessedNumbers(number);
-            if(guessList.containsValue(number)) {
+            if(guessList.get(position)==-1)
+                return ("Position " + position + " has been answered. Try another position.");
+            else if(guessList.containsValue(number)) {
                 if(guessList.get(position) == number) {
                     if(player.getCorrectCounter()==3)
                         player.setLuckyGuessBool(true);

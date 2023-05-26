@@ -40,7 +40,7 @@ public class Client implements AutoCloseable {
         write.println("guessTheNumber" + " " + number + " " + position);
         String line = read.nextLine();
         hintList.add(line);
-        if (line.contains("Correct Guess!")) {
+        if (line.contains("Correct Guess!") || line.contains("Try another position")) {
             return hintList;
         }
         int size = Integer.parseInt(read.nextLine());
