@@ -27,6 +27,12 @@ public class Player {
 
     }
 
+    public Player(int playerId, int wins, int luckyGuess) {
+        this.playerId = playerId;
+        this.wins = wins;
+        this. luckyGuess = luckyGuess;
+    }
+
     public void resetPlayerStats() {
         correctCounter = 3;
         guessCount = initialGuessCount;

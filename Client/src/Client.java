@@ -15,7 +15,7 @@ public class Client implements AutoCloseable {
                 "\nScore 50 points to win!");
     }
 
-    public int getPlayerID() {
+    public int getPlayerId() {
         write.println("getPlayerId");
         return Integer.parseInt(read.nextLine());
     }
@@ -35,9 +35,9 @@ public class Client implements AutoCloseable {
 
     public List<String> guessTheNumber(int number, int position) {
         List<String> hintList = new ArrayList<>();
-        String spacing = "------------------------------------";
         write.println("guessTheNumber" + " " + number + " " + position);
         String line = read.nextLine();
+        String spacing = "------------------------------------";
         hintList.add(spacing);
         hintList.add(line);
         if (line.contains("Correct Guess!") || line.contains("Try another position")) {

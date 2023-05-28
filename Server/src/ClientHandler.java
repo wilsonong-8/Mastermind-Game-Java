@@ -71,18 +71,15 @@ public class ClientHandler implements Runnable {
                         default:
                             throw new Exception("Unknown command " + substring[0]);
                     }
-
                 }
-
                 } catch (Exception e) {
-                e.printStackTrace();
+                    e.printStackTrace();
                 }
             } catch (Exception e) {
-            e.printStackTrace();
+                e.printStackTrace();
             } finally {
-            gameHost.removePlayer(playerId);
             try {
-
+                gameHost.removePlayer(playerId);
                 socket.close();
             }catch (IOException e) {
                 e.printStackTrace();

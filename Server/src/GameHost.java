@@ -3,11 +3,8 @@ import java.util.*;
 public class GameHost {
 
     private int idNum = 100;
-
     private Map<Integer,Player> playerList = new HashMap<>();
     private List<Player> winList = new ArrayList<>();
-
-
 
     public int createPlayer() {
         int[] number_list = numbersGenerator();
@@ -15,6 +12,22 @@ public class GameHost {
         playerList.put(idNum,player);
 
         return idNum++;
+    }
+
+    public void createDummyPlayer(int playerId, int wins, int luckyGuess) {
+        Player player = new Player(playerId, wins, luckyGuess);
+        winList.add(player);
+    }
+
+    public int[] numbersGenerator() {
+        int[] number_list = new int[3];
+        Random random = new Random();
+        for (int i = 0; i < 3; i++) {
+            // Generate a random number between 1 and 10
+            int randomNumber = random.nextInt(10) + 1;
+            number_list[i] = randomNumber;
+        }
+        return number_list;
     }
 
     public void generateNewBoard(int playerId) {
@@ -51,36 +64,19 @@ public class GameHost {
                     player.changeQuestionBoard(position);
                     player.setCorrectCounter();
                     return ("Correct Guess! " + number + " is in Position " + position);
-
                 }
                 else {
                     player.setLuckyGuessBool(false);
                     player.deductGuessCount();
                     player.addCorrectNumbers(number);
                     return ("Board contains " + number + " but not in position " + position);
-
                 }
             }
             else {
                 player.setLuckyGuessBool(false);
                 player.deductGuessCount();
                 return ("Board does not contain " + number);
-
             }
-
-    }
-
-
-    public int[] numbersGenerator() {
-        int[] number_list = new int[3];
-        Random random = new Random();
-
-        for (int i = 0; i < 3; i++) {
-            // Generate a random number between 1 and 10
-            int randomNumber = random.nextInt(10) + 1;
-            number_list[i] = randomNumber;
-        }
-        return number_list;
     }
 
     public List<String> getHintList(int playerId) {
@@ -114,26 +110,21 @@ public class GameHost {
 
     public String checkScore(int playerId) {
         synchronized (playerList){
-            Player player = playerList.get(playerId);
-            if(player.getScore()>=50) {
-                player.addWins();
-                if (!winList.contains(player))
-                    winList.add(player);
-                player.resetPlayerStats();
+            Player winner = playerList.get(playerId);
+            if(winner.getScore()>=50) {
+                winner.addWins();
+                if (!winList.contains(winner))
+                    winList.add(winner);
+                winner.resetPlayerStats();
                 generateNewBoard(playerId);
                 //RESETS SCORES FOR EVERYONE TO 0, DOES NOT CHANGE ANYTHING ELSE
-                for (Player losers : playerList.values())
-                    losers.resetScore();
+                for (Player player : playerList.values())
+                    player.resetScore();
                 return "win";
             }
             return "continue";
         }
     }
-
-
-
-
-
 
     //Sorting List by most Wins
     public Comparator<Player> compareByWins = Comparator.comparing(Player::getWins).reversed();
@@ -185,6 +176,4 @@ public class GameHost {
             System.out.println("Player " + playerId + " has disconnected.");
         }
     }
-
-
 }
