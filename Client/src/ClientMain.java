@@ -32,10 +32,10 @@ public class ClientMain {
                         if (checkCountReply.equals("correct")) {
                             String checkScoreReply = client.checkScore();
                             if(checkScoreReply.equals("win")) {
-                                System.out.println("You won the game!");
+                                System.out.println("Congratulations! You won the game!");
                             }
                             else {
-                                System.out.println("You guessed correctly!");
+                                System.out.println("You guessed all 3 numbers correctly!");
                             }
                             startOrStop(in);
                             break;
