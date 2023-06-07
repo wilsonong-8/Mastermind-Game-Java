@@ -7,6 +7,7 @@ public class Client implements AutoCloseable {
     private final Scanner read;
     private final PrintWriter write;
 
+    //New Client Constructor
     public Client() throws Exception {
         Socket socket = new Socket("localhost",port);
         read = new Scanner(socket.getInputStream());
@@ -14,12 +15,12 @@ public class Client implements AutoCloseable {
         System.out.println("Welcome to MasterMind! You have 10 chances to guess 3 numbers in their correct positions. " +
                 "\nScore 50 points to win!");
     }
-
+    //Retrieves playerID
     public int getPlayerId() {
         write.println("getPlayerId");
         return Integer.parseInt(read.nextLine());
     }
-
+    //Retrieves information of all current players
     public List<String> getAllPlayerInfo() {
         List<String> playerInfo = new ArrayList<>();
         write.println("getAllPlayerInfo");
@@ -32,7 +33,10 @@ public class Client implements AutoCloseable {
         }
         return  playerInfo;
     }
-
+    /*
+    Sends number and position guess to server
+    Expects correct or wrong guess response and displays accordingly
+     */
     public List<String> guessTheNumber(int number, int position) {
         List<String> hintList = new ArrayList<>();
         write.println("guessTheNumber" + " " + number + " " + position);
@@ -53,19 +57,19 @@ public class Client implements AutoCloseable {
         return hintList;
     }
 
+    //Check and retrieve number of guess chances
     public String checkGuessCount() {
         write.println("checkCount");
         String countReply = read.nextLine();
         return countReply;
     }
 
+    //Check and retrieve user score
     public String checkScore() {
         write.println("checkScore");
         String scoreReply = read.nextLine();
         return scoreReply;
     }
-
-
 
     @Override
     public void close() throws Exception {

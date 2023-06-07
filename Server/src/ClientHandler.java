@@ -27,7 +27,7 @@ public class ClientHandler implements Runnable {
                     switch (substring[0]) {
                         case ("getPlayerId"):
                             write.println(playerId);
-                            // TEST FUNCTION : Get 3 numbers from playerId
+                            // EXTRA FUNCTION : Get questionBoard from player
                             System.out.println("Player " + playerId + " Question Board: " +  gameHost.get3numbers(playerId));
                             break;
 

@@ -6,6 +6,7 @@ public class GameHost {
     private Map<Integer,Player> playerList = new HashMap<>();
     private List<Player> winList = new ArrayList<>();
 
+    //Creates new player
     public int createPlayer() {
         int[] number_list = numbersGenerator();
         Player player = new Player(idNum,number_list[0],number_list[1],number_list[2]);
@@ -13,12 +14,13 @@ public class GameHost {
 
         return idNum++;
     }
-
+    //Creates Dummy Player
     public void createDummyPlayer(int playerId, int wins, int luckyGuess) {
         Player player = new Player(playerId, wins, luckyGuess);
         winList.add(player);
     }
 
+    //Generates 3 random numbers into int[] array
     public int[] numbersGenerator() {
         int[] number_list = new int[3];
         Random random = new Random();
@@ -30,16 +32,18 @@ public class GameHost {
         return number_list;
     }
 
+    //Generates new questionBoard for player
     public void generateNewBoard(int playerId) {
         int[] number_list = numbersGenerator();
         playerList.get(playerId).changeNewBoard(number_list[0],number_list[1],number_list[2]);
     }
 
-    //Test Function to get the 3 guesses out ( Position : Number)
+    //Test Function to return questionBoard ( Position : Number)
     public Map<Integer, Integer> get3numbers(int playerID) {
         return playerList.get(playerID).getQuestionBoard();
     }
 
+    //Retrieves current player info from playerList
     public List<String> getAllPlayerInfo() {
         List<String> allPlayerInfo = new ArrayList<>();
         for (Player player : playerList.values()) {
@@ -49,6 +53,10 @@ public class GameHost {
         return allPlayerInfo;
     }
 
+    /*
+    Takes in playerId and 2 inputs by user.
+    Checks input against questionBoard, modify score and returns response
+     */
     public String guessTheNumber(int playerId,int number, int position) {
             Player player = playerList.get(playerId);
             var guessList = player.getQuestionBoard();
@@ -79,6 +87,7 @@ public class GameHost {
             }
     }
 
+    //Retrieves various hints when user guessed wrongly
     public List<String> getHintList(int playerId) {
         Player player = playerList.get(playerId);
         List<String> hintList = new ArrayList<>();
@@ -89,6 +98,7 @@ public class GameHost {
         return hintList;
     }
 
+    //Checks how many guesses left for player. Returns response and updates stats if reaches 0
     public String checkGuessCount(int playerId) {
         Player player = playerList.get(playerId);
         if(player.getCorrectCounter() <=0) {
@@ -108,6 +118,8 @@ public class GameHost {
         else return "continue";
     }
 
+    //Checks score of player. If reaches 50, will reset scores for current players.
+    //Inserts player into winList
     public String checkScore(int playerId) {
         synchronized (playerList){
             Player winner = playerList.get(playerId);
@@ -138,6 +150,7 @@ public class GameHost {
         Collections.sort(players, compareByLuckyGuess);
     }
 
+    //Display all timer winners on server
     public void showWinners() {
             System.out.print("Winner List: ");
             for(Player player : winList) {
@@ -146,6 +159,7 @@ public class GameHost {
             System.out.println();
     }
 
+    //Displays top 10 winners on server
     public void showTop10Winners() {
             List<Player> sortedList = new ArrayList<>(winList);
             Collections.sort(sortedList,compareByWins);
@@ -158,6 +172,7 @@ public class GameHost {
             System.out.println();
     }
 
+    //Displays top 3 lucky guessers on server
     public void showTop3LuckyPlayers() {
             List<Player> sortedList = new ArrayList<>(winList);
             Collections.sort(sortedList, compareByLuckyGuess);
@@ -170,6 +185,7 @@ public class GameHost {
             System.out.println();
     }
 
+    //Removers player from playerList
     public void removePlayer(int playerId) {
         synchronized (playerList) {
             playerList.remove(playerId);

@@ -8,6 +8,9 @@ public class ServerMain {
     private static final GameHost gamehost = new GameHost();
 
     public static void main(String[] args) {
+        /*
+        Creates 9 dummy player scores to populate winList
+         */
         gamehost.createDummyPlayer(90,2,1);
         gamehost.createDummyPlayer(91,2,0);
         gamehost.createDummyPlayer(92,1,2);
@@ -21,9 +24,11 @@ public class ServerMain {
         ServerSocket serverSocket;
 
         try {
+            //Opens server socket
             serverSocket = new ServerSocket(port);
             System.out.println("Waiting for players...");
             while(true) {
+                //Wait for client connection. Starts new thread if connected
                 Socket socket = serverSocket.accept();
                 new Thread(new ClientHandler(socket, gamehost)).start();
             }

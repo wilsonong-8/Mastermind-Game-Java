@@ -8,23 +8,21 @@ public class Player {
     private int score = 0;
     private int wins = 0;
     private int luckyGuess = 0;
-
     private boolean luckyGuessBool;
 
-    //QuestionBoard contains (Position : Number)
+    //questionBoard contains (Position : Number)
     private Map<Integer,Integer> questionBoard = new HashMap<>();
+
     //hintList contains guesses remaining, numbers used, and correct guesses
     private List<Integer> guessedNumbers = new ArrayList<>();
     private List<Integer> correctNumbers = new ArrayList<>();
     private List<String> correctPosition = new ArrayList<>();
-
 
     public Player(int playerId, int num1, int num2, int num3) {
         this.playerId = playerId;
         questionBoard.put(1,num1);
         questionBoard.put(2,num2);
         questionBoard.put(3,num3);
-
     }
 
     public Player(int playerId, int wins, int luckyGuess) {

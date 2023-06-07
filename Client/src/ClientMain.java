@@ -9,7 +9,9 @@ public class ClientMain {
             try (Client client = new Client()) {
 
                 while (true) {
-                    //Gets PlayerID
+                    /*
+                    First Loop will retrieve playerID and current players in game
+                     */
                     int playerID = client.getPlayerId();
 
                     System.out.println("Your ID: " + playerID);
@@ -18,9 +20,11 @@ public class ClientMain {
                     System.out.println("------------------------------------");
                     playerInfo.stream().forEach((p)-> System.out.println(p));
                     System.out.println("------------------------------------");
-
+                    /*
+                    2nd Loop Starts the guessing game
+                     */
                     while (true) {
-                        //Guess Game
+
                         int numberGuess = validationCheck(in,1,10);
 
                         int positionGuess = validationCheck(in,1,3);
@@ -52,7 +56,10 @@ public class ClientMain {
             System.out.println(e.getMessage());
         }
     }
-
+    /*
+    Validation Check for input of number between 1-10 and position between 1-3
+    Takes in 3 arguments
+     */
     public static int validationCheck(Scanner in, int moreThan, int lessThan) {
         int outputNum;
         do {
@@ -73,7 +80,10 @@ public class ClientMain {
         while (true);
         return outputNum;
     }
-
+    /*
+    User Prompt to continue or stop the game.
+    Takes in only Integer 1 or 2
+     */
     public static void startOrStop(Scanner in) throws Exception {
         int startOrStop;
         do {
