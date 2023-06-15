@@ -56,6 +56,7 @@ public class GameHost {
     /*
     Takes in playerId and 2 inputs by user.
     Checks input against questionBoard, modify score and returns response
+    If position has already been answered, server will validate and respond accordingly
      */
     public String guessTheNumber(int playerId,int number, int position) {
             Player player = playerList.get(playerId);
