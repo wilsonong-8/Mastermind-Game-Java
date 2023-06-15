@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Player {
-    private int initialGuessCount = 49;
+    private int initialGuessCount = 10;
     private final int playerId;
     private int guessCount = initialGuessCount;
     private int correctCounter = 3;
