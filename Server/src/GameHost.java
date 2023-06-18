@@ -119,8 +119,8 @@ public class GameHost {
         else return "continue";
     }
 
-    //Checks score of player. If reaches 50, will reset scores for current players.
-    //Inserts player into winList
+    //Checks score of player. If reaches 50, will reset scores for all current players.
+    //Inserts winning player into winList
     public String checkScore(int playerId) {
         synchronized (playerList){
             Player winner = playerList.get(playerId);

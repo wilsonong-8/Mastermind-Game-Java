@@ -10,7 +10,7 @@ public class ClientMain {
 
                 while (true) {
                     /*
-                    First Loop will retrieve playerID and current players in game
+                    First While Loop will retrieve playerID and current players in game
                      */
                     int playerID = client.getPlayerId();
 
@@ -21,7 +21,7 @@ public class ClientMain {
                     playerInfo.stream().forEach((p)-> System.out.println(p));
                     System.out.println("------------------------------------");
                     /*
-                    2nd Loop Starts the guessing game
+                    2nd While Loop Starts the guessing game
                      */
                     while (true) {
 
@@ -63,7 +63,7 @@ public class ClientMain {
     public static int validationCheck(Scanner in, int moreThan, int lessThan) {
         int outputNum;
         do {
-            System.out.println("Guess a number between 1 to 10:");
+            System.out.println("Guess a number between " + moreThan + " to " + lessThan);
             String inputString = in.nextLine();
             if(inputString.isEmpty())
                 System.out.println("Input cannot be empty");

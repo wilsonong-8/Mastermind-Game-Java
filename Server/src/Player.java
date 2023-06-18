@@ -1,6 +1,12 @@
 import java.util.*;
 
 public class Player {
+    /*
+    initialGuessCount is tied to guessCount in the initialized variable and in the
+    resetPlayerStats() method. Changing this will change the starting Guess Count for all Players
+    For testing purposes, count can be changed to 50 to simulate 1 win after guessing
+    the Question Board correctly.
+     */
     private int initialGuessCount = 10;
     private final int playerId;
     private int guessCount = initialGuessCount;
